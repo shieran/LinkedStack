@@ -7,7 +7,6 @@ public class MyLinkedList<T> {
     transient MyNode<T> last;
     protected transient int modCount = 0;
 
-
     public int size() {
         return size;
     }
@@ -23,7 +22,6 @@ public class MyLinkedList<T> {
             }
         }
         sb.append(']');
-
         return sb.toString();
     }
 
@@ -35,9 +33,7 @@ public class MyLinkedList<T> {
             return false;
         }
         MyLinkedList<?> myLinkedList = (MyLinkedList<?>) o;
-
-        return size() == myLinkedList.size() &&
-                this.checkMyLinkedListsForEquals(myLinkedList);
+        return size() == myLinkedList.size() && this.checkMyLinkedListsForEquals(myLinkedList);
     }
 
     public boolean checkMyLinkedListsForEquals(MyLinkedList myLinkedList) {
@@ -59,15 +55,13 @@ public class MyLinkedList<T> {
         return result;
     }
 
-
     private void linkLast(T t) {
         final MyNode<T> l = last;
         final MyNode<T> newMyNode = new MyNode<>(l, t, null);
         last = newMyNode;
         if (l == null) {
             first = newMyNode;
-        }
-        else {
+        } else {
             l.next = newMyNode;
         }
         size++;
@@ -80,8 +74,7 @@ public class MyLinkedList<T> {
         succ.prev = newMyNode;
         if (pred == null) {
             first = newMyNode;
-        }
-        else {
+        } else {
             pred.next = newMyNode;
         }
         size++;
@@ -92,35 +85,29 @@ public class MyLinkedList<T> {
         final T element = x.item;
         final MyNode<T> next = x.next;
         final MyNode<T> prev = x.prev;
-
         if (prev == null) {
             first = next;
         } else {
             prev.next = next;
             x.prev = null;
         }
-
         if (next == null) {
             last = prev;
         } else {
             next.prev = prev;
             x.next = null;
         }
-
         x.item = null;
         size--;
         modCount++;
         return element;
     }
 
-
     public void add(int index, T element) {
         checkPositionIndex(index);
-
         if (index == size) {
             linkLast(element);
-        }
-        else {
+        } else {
             linkBefore(element, node(index));
         }
     }
@@ -161,7 +148,6 @@ public class MyLinkedList<T> {
         }
     }
 
-
     public T remove(int index) {
         checkElementIndex(index);
         return unlink(node(index));
@@ -176,12 +162,10 @@ public class MyLinkedList<T> {
         return node(index).item;
     }
 
-
-    private static class MyNode<T> {
+    static class MyNode<T> {
         T item;
         MyNode<T> next;
         MyNode<T> prev;
-
         MyNode(MyNode<T> prev, T element, MyNode<T> next) {
             this.item = element;
             this.next = next;

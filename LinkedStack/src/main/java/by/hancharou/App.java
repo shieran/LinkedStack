@@ -1,7 +1,5 @@
 package by.hancharou;
 
-import java.util.LinkedList;
-
 /**
  * Hello world!
  *
@@ -12,5 +10,5 @@ public class App
     {
         System.out.println( "Hello World!" );
     }
-    LinkedList<Fraction> fractions = new LinkedList<>();
+
 }

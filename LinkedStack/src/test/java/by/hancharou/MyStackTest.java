@@ -3,6 +3,7 @@ package by.hancharou;
 import org.junit.Test;
 
 import java.util.EmptyStackException;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
@@ -12,16 +13,27 @@ public class MyStackTest {
     public void toStingAndPushTest(){
         MyStack<Integer> numbers = new MyStack<>();
         numbers.push(123);
-        numbers.push(123);
-        numbers.push(123);
-        assertEquals("This Stack: 123 123 123", numbers.toString());
+        numbers.push(12);
+        numbers.push(3);
+        assertEquals("This Stack: 3 12 123", numbers.toString());
     }
 
     @Test
     public void popTest(){
         MyStack<Integer> numbers = new MyStack<>();
         numbers.push(123);
+        numbers.push(1);
+        numbers.push(12);
+        assertEquals("12", numbers.pop().toString());
+        assertEquals("1", numbers.pop().toString());
         assertEquals("123", numbers.pop().toString());
+    }
+
+    @Test (expected = NoSuchElementException.class)
+    public void popTest2(){
+        MyStack<Integer> numbers = new MyStack<>();
+        numbers.push(null);
+        numbers.pop();
     }
 
     @Test
@@ -89,81 +101,11 @@ public class MyStackTest {
         assertFalse(numbers.hashCode() == numbers3.hashCode());
     }
 
-    @Test
-    public void hugeCapacityTest(){
-        MyStack<String> stack = new MyStack<>();
-        stack.push("123");
-        stack.push("123");
-        stack.grow(3);
-        stack.hugeCapacity(4);
-    }
-
-    @Test(expected = OutOfMemoryError.class)
-    public void hugeCapacityTest2(){
-        MyStack<String> stack = new MyStack<>();
-        stack.push("123");
-        stack.push("123");
-        stack.push("123");
-        stack.push("123");
-        stack.push("123");
-        stack.push("123");
-        stack.push("123");
-        stack.grow(-3);
-    }
-
-    @Test
-    public void hugeCapacityTest3(){
-        MyStack<String> string = new MyStack<>();
-        assertEquals(Integer.MAX_VALUE, string.hugeCapacity(9));
-        assertEquals(8, string.hugeCapacity(3));
-    }
-
 
         @Test (expected = EmptyStackException.class)
     public void peekTest(){
         MyStack<String> stack = new MyStack<>();
         stack.peek();
-    }
-
-    @Test (expected = IndexOutOfBoundsException.class)
-    public void elementAtTest(){
-        MyStack<String> stack = new MyStack<>();
-        stack.elementAt(3);
-    }
-
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void removeElementAtTest1(){
-        MyStack<String> stack = new MyStack<>();
-        stack.removeElementAt(4);
-    }
-
-    @Test (expected = ArrayIndexOutOfBoundsException.class)
-    public void removeElementAtTest2(){
-        MyStack<String> stack = new MyStack<>();
-        stack.removeElementAt(-4);
-    }
-
-    @Test
-    public void removeElementAtTest3(){
-        MyStack<String> stack = new MyStack<>();
-        stack.push("string");
-        stack.push("string");
-        stack.push("string");
-        stack.push("string");
-        stack.push("string");
-        stack.removeElementAt(2);
-    }
-
-    @Test
-    public void growTest(){
-        MyStack<Integer> integers = new MyStack<>();
-        integers.push(1);
-        integers.push(1);
-        integers.push(1);
-        integers.push(1);
-        integers.push(1);
-        integers.push(1);
-        integers.grow(2);
     }
 
 
